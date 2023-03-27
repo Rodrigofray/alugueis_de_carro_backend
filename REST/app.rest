@@ -1,0 +1,9 @@
+POST http://localhost:3000/carro
+
+
+Content-Type: application/json
+{
+  "modelo": "modelo",
+      "ano": 2020,
+      "compradorId": 3,
+}

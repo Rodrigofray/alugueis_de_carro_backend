@@ -1,0 +1,39 @@
+// File: schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Carro {
+  id          Int      @id @default(autoincrement())
+  modelo      String
+  ano         Int
+  compradorId Int?
+  comprador   Comprador? @relation(fields: [compradorId], references: [id])
+  compras     Compra[]
+}
+
+model Compra {
+  id          Int     @id @default(autoincrement())
+  carroId     Int
+  compradorId Int
+  startDate   DateTime
+  endDate     DateTime
+  status      String
+  carro       Carro   @relation(fields: [carroId], references: [id])
+  comprador   Comprador @relation(fields: [compradorId], references: [id])
+}
+
+model Comprador {
+  id      Int     @id @default(autoincrement())
+  nome    String
+  email   String
+  contato String
+  carros  Carro[]
+  compras Compra[]
+}
